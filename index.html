@@ -473,6 +473,51 @@
       overflow:hidden; clip:rect(0,0,0,0);
       white-space:nowrap; border:0;
     }
+
+    .coverCta{
+  margin-top: 18px;
+  display:flex;
+  justify-content:center;
+  gap: 10px;
+  flex-wrap:wrap;
+}
+
+.coverFootnote{
+  margin: 14px auto 0;
+  max-width: 34ch;
+  text-align: center;
+  color: rgba(255,255,255,.66);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: .02em;
+  position: relative;
+  padding-top: 10px;
+}
+
+.coverFootnote::before{
+  content:"";
+  display:block;
+  width: 92px;
+  height: 1px;
+  margin: 0 auto 10px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+}
+
+.coverFootnoteMark{
+  font-family: var(--mono);
+  font-size: 11px;
+  vertical-align: top;
+  margin-right: 4px;
+  color: rgba(255,255,255,.52);
+}
+
+@media (max-width: 720px){
+  .coverFootnote{
+    max-width: 28ch;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+}
   </style>
 </head>
 
@@ -491,10 +536,12 @@
             <h1 class="coverTitle">Some stories are printed in ink.<br/>The important parts are written in the margins.</h1>
             <div class="coverCta">
               <button id="openBtn" type="button" aria-label="Open the story">Open the story</button>
-              <button id="soundlessHint" class="ghost" type="button" aria-label="How to interact" title="How to interact">
-                Tap to turn pages · Click the margin to reveal
-              </button>
             </div>
+            
+            <p class="coverFootnote" aria-hidden="true">
+              <span class="coverFootnoteMark">†</span>
+              Turn the page with a tap. The margins keep their own secrets.
+            </p>
             <p class="srOnly" id="kbdHelp">
               Keyboard: Enter to open. Space or ArrowRight to turn page. ArrowLeft to go back. Press M to reveal margin note.
             </p>
