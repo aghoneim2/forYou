@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="color-scheme" content="light" />
-  <title>The Story in Margins</title>
+  <title>The Unexpected Story, As It Happened</title>
   <meta name="description" content="A small book of a big love — where the truest lines live in the margins." />
 
   <style>
@@ -501,46 +501,17 @@
     }
     .finaleGlow.on{ opacity:1; }
 
-    .closingLine{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding: 26px;
-      opacity:0;
-      pointer-events:none;
-      transition: opacity 520ms ease;
-      z-index:10;
-      background: linear-gradient(180deg, rgba(251,244,230,.18), rgba(251,244,230,.5));
-    }
-
-    .closingLine.on{
-      opacity:1;
-      pointer-events:auto;
-    }
-
-    .closingLine p{
-      margin:0;
-      max-width: 30ch;
-      font-size: clamp(22px, 2.8vw, 34px);
-      line-height:1.25;
-      color: rgba(43,36,31,.92);
-      text-shadow: 0 2px 0 rgba(255,255,255,.22);
-    }
-
-    .closingLine small{
-      display:block;
-      margin-top: 14px;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: rgba(43,36,31,.55);
-    }
-
     @media (max-width: 720px){
+
+      .closingPanel{
+  align-items:center;
+  justify-content:center;
+  padding: 6px 0 0;
+}
+
+.closingPanel p{
+  max-width: 14ch;
+}
       .app{
         height:min(700px, 92vh);
       }
@@ -603,12 +574,21 @@
       .noteFold,
       .notePrompt,
       .finaleGlow,
-      .closingLine,
       .flipShade,
       .navBar button,
       .cover button{
         transition:none;
       }
+
+      .closingPanel{
+  align-items:center;
+  justify-content:center;
+  padding: 6px 0 0;
+}
+
+.closingPanel p{
+  max-width: 14ch;
+}
     }
 
     .srOnly{
@@ -618,6 +598,53 @@
       overflow:hidden; clip:rect(0,0,0,0);
       white-space:nowrap; border:0;
     }
+
+    .mainStory{
+  opacity:1;
+  transition: opacity var(--fade-ms) ease;
+}
+
+.mainStory.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+.closingPanel{
+  position:absolute;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 520ms ease;
+  padding: 12px 8px 8px;
+}
+
+.closingPanel.on{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.closingPanel p{
+  margin:0;
+  max-width: 30ch;
+  font-size: clamp(22px, 2.8vw, 34px);
+  line-height:1.25;
+  color: rgba(43,36,31,.92);
+  text-shadow: 0 2px 0 rgba(255,255,255,.22);
+}
+
+.closingPanel small{
+  display:block;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(43,36,31,.55);
+}
   </style>
 </head>
 
@@ -631,7 +658,7 @@
 
         <div class="cover" id="coverView">
           <div class="coverInner">
-            <p class="coverSub">The Story in Margins</p>
+            <p class="coverSub">The Unexpected Story, As It Happened</p>
             <h1 class="coverTitle">Some stories are printed in ink.<br/>The important parts are written in the margins.</h1>
 
             <div class="coverCta">
@@ -657,8 +684,15 @@
 
             <div class="content">
               <article class="mainText" aria-label="Main story text">
-                <p id="mainText"></p>
-              </article>
+              <p id="mainText" class="mainStory"></p>
+            
+              <div class="closingPanel" id="closingPanel" aria-hidden="true">
+                <div>
+                  <p>“I’d write you into every version of my life.”</p>
+                  <p>Heba Elrawashdy, will you marry me?</p>
+                </div>
+              </div>
+            </article>
 
               <aside class="margin" aria-label="Margin notes">
                 <div class="marginTop">
@@ -691,12 +725,6 @@
             </div>
           </div>
 
-          <div class="closingLine" id="closingLine">
-            <div>
-              <p>“I’d write you into every version of my life.”</p>
-              <small>— the end, and the beginning</small>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -706,34 +734,34 @@
     (function () {
       const chapters = [
         {
-          main: "At first, it looked ordinary enough—two lives crossing at the right time.",
+          main: "At first, it looked ordinary enough—two people, both giving a chance at a time where it felt there was no chance.",
           teaser: "a small note, almost shy…",
-          note: "You did not feel ordinary to me."
+          note: "You did not feel ordinary to me. As if you were gift wrapped, waiting to be revealed..."
         },
         {
-          main: "Somewhere between conversation and habit, you became part of my every day.",
+          main: "Yet somehow, someway, through our long talks, you became part of my every day.",
           teaser: "penciled in, then underlined…",
-          note: "This is where I stopped being careful."
+          note: "Kimchi Pancakes and Mexican Hot Chocolate-this is where I stopped being careful."
         },
         {
-          main: "Love arrived quietly, then all at once.",
+          main: "Feelings arrived quietly, then blossomed into something more.",
           teaser: "a sentence I kept rereading…",
-          note: "You made peace feel romantic."
+          note: "You made crazy feel romantic. You made love feel closer than reality."
         },
         {
-          main: "And then came the night that asked for forever.",
+          main: "And then came the night when the date to start our forever was set.",
           teaser: "the page where my hands shook…",
-          note: "I think my heart answered before you did."
+          note: "I knew then and there my future was set, my decision was final."
         },
         {
           main: "What comes next is not a mystery to me.",
           teaser: "written beside the everyday…",
-          note: "I want the ordinary days, too."
+          note: "I want the ordinary days, but only with you."
         },
         {
           main: "So I left one last truth where only we would look for it.",
           teaser: "a question in the margin…",
-          note: "Will you marry me?"
+          note: "I love you. And I can't live without you."
         }
       ];
 
@@ -753,7 +781,7 @@
 
       const flipLayer = document.getElementById("flipLayer");
       const finaleGlow = document.getElementById("finaleGlow");
-      const closingLine = document.getElementById("closingLine");
+      const closingPanel = document.getElementById("closingPanel");
 
       let index = 0;
       let noteRevealed = false;
@@ -789,27 +817,39 @@
         nextBtn.disabled = turning || finished || !noteRevealed;
       }
 
+      function showEnding(show) {
+  finished = show;
+  mainText.classList.toggle("hidden", show);
+  closingPanel.classList.toggle("on", show);
+  closingPanel.setAttribute("aria-hidden", show ? "false" : "true");
+  updateNavState();
+}
+
       function setChapter(i) {
-        const ch = chapters[i];
+  const ch = chapters[i];
 
-        mainText.textContent = ch.main;
-        noteTeaser.textContent = ch.teaser;
-        noteText.textContent = ch.note;
-        chapterLabel.textContent = `CHAPTER ${roman(i + 1)}`;
+  showEnding(false);
 
-        noteRevealed = false;
-        noteCard.classList.remove("revealed");
-        noteCard.setAttribute("aria-expanded", "false");
+  mainText.textContent = ch.main;
+  mainText.classList.remove("hidden");
 
-        notePrompt.textContent = i === chapters.length - 1
-          ? "one last note remains"
-          : "kept in the margins";
+  noteTeaser.textContent = ch.teaser;
+  noteText.textContent = ch.note;
+  chapterLabel.textContent = `CHAPTER ${roman(i + 1)}`;
 
-        const isFinal = i === chapters.length - 1;
-        finaleGlow.classList.toggle("on", isFinal);
+  noteRevealed = false;
+  noteCard.classList.remove("revealed");
+  noteCard.setAttribute("aria-expanded", "false");
 
-        updateNavState();
-      }
+  notePrompt.textContent = i === chapters.length - 1
+    ? "one last note remains"
+    : "kept in the margins";
+
+  const isFinal = i === chapters.length - 1;
+  finaleGlow.classList.toggle("on", isFinal);
+
+  updateNavState();
+}
 
       function revealNote() {
         if (finished || noteRevealed || turning) return;
@@ -831,10 +871,16 @@
         const nextIndex = index + dir;
         if (nextIndex < 0) return;
 
+        if (finished) {
+  if (dir < 0) {
+    showEnding(false);
+    return;
+  }
+  return;
+}
+
         if (nextIndex >= chapters.length) {
-          finished = true;
-          updateNavState();
-          closingLine.classList.add("on");
+          showEnding(true);
           return;
         }
 
@@ -855,17 +901,17 @@
       }
 
       function openBook() {
-        coverView.style.display = "none";
-        pageView.style.display = "block";
+  coverView.style.display = "none";
+  pageView.style.display = "block";
 
-        index = 0;
-        finished = false;
-        turning = false;
-        closingLine.classList.remove("on");
+  index = 0;
+  noteRevealed = false;
+  turning = false;
+  showEnding(false);
 
-        setChapter(index);
-        noteCard.focus({ preventScroll: true });
-      }
+  setChapter(index);
+  noteCard.focus({ preventScroll: true });
+}
 
       function onKeyDown(e) {
         const key = e.key.toLowerCase();
