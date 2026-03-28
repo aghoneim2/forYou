@@ -33,6 +33,7 @@
 
     *{ box-sizing: border-box; }
     html, body { height:100%; }
+
     body{
       margin:0;
       font-family: var(--serif);
@@ -145,7 +146,7 @@
     .content{
       position:relative;
       height:100%;
-      padding: 26px 22px;
+      padding: 24px 22px 18px;
       display:flex;
       gap: 18px;
     }
@@ -155,15 +156,13 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding: 14px 8px;
+      padding: 12px 8px 8px;
       text-align:center;
       line-height:1.35;
       letter-spacing:.2px;
       font-size: clamp(20px, 2.6vw, 30px);
       color: var(--ink);
-      position:relative;
-      z-index:2;
-      pointer-events:none;
+      min-width:0;
     }
 
     .mainText p{
@@ -172,15 +171,14 @@
     }
 
     .margin{
-      width: min(240px, 32%);
+      width: min(250px, 34%);
       border-left: 1px solid rgba(43,36,31,.10);
       padding-left: 14px;
       position:relative;
       display:flex;
       flex-direction:column;
-      justify-content:space-between;
-      gap: 12px;
-      z-index: 4;
+      justify-content:flex-start;
+      gap: 14px;
     }
 
     .marginTop{
@@ -207,10 +205,10 @@
 
     .noteCard{
       border-radius: 14px;
-      min-height: 152px;
-      padding: 18px 16px 18px 16px;
+      min-height: 168px;
+      padding: 18px 16px;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,242,231,.96));
+        linear-gradient(180deg, rgba(255,255,255,.94), rgba(245,238,226,.98));
       border: 1px solid rgba(43,36,31,.10);
       box-shadow: 0 10px 22px rgba(0,0,0,.08);
       position:relative;
@@ -244,11 +242,6 @@
       opacity:.13;
       pointer-events:none;
       z-index:0;
-    }
-
-    .noteCard.folded{
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.94), rgba(245,238,226,.98));
     }
 
     .noteFold{
@@ -338,62 +331,46 @@
       transform: translateY(-6px);
     }
 
-    button{
+    .navBar{
+      position:absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      z-index:6;
+    }
+
+    .navBar button{
       appearance:none;
       border: 1px solid rgba(43,36,31,.16);
-      background: rgba(255,255,255,.65);
+      background: rgba(255,255,255,.72);
       color: var(--ink);
       border-radius: 999px;
-      padding: 10px 14px;
+      padding: 10px 16px;
       font-family: var(--serif);
       font-size: 14px;
       letter-spacing:.15px;
       cursor:pointer;
       box-shadow: 0 8px 16px rgba(0,0,0,.08);
-      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, opacity 140ms ease;
+      min-width: 84px;
     }
 
-    button:hover{ transform: translateY(-1px); }
-    button:active{ transform: translateY(0px); }
-    button:focus-visible{
+    .navBar button:hover{ transform: translateY(-1px); }
+    .navBar button:active{ transform: translateY(0); }
+    .navBar button:focus-visible{
       outline: 3px solid rgba(74, 98, 196, .35);
       outline-offset: 2px;
     }
 
-    .pageHint{
-      position:absolute;
-      left: 22px;
-      bottom: 16px;
-      right: 22px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      pointer-events:none;
-      color: rgba(43,36,31,.55);
-      font-size: 12px;
-      letter-spacing:.08em;
-      text-transform: uppercase;
-      font-family: var(--mono);
-      z-index:5;
+    .navBar button:disabled{
+      opacity:.42;
+      cursor:not-allowed;
+      transform:none;
     }
-
-    .tapZone{
-      position:absolute;
-      top: 18px;
-      bottom: 52px;
-      left: 22px;
-      right: calc(min(240px, 32%) + 28px);
-      display:flex;
-      pointer-events:auto;
-      z-index: 3;
-    }
-
-    .tapLeft, .tapRight{
-      flex:1;
-    }
-    .tapLeft{ cursor: w-resize; }
-    .tapRight{ cursor: e-resize; }
 
     .cover{
       position:absolute;
@@ -446,10 +423,22 @@
     }
 
     .cover button{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.22);
       background: rgba(255,255,255,.90);
-      border-color: rgba(255,255,255,.22);
       color: #221714;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-family: var(--serif);
+      font-size: 14px;
+      letter-spacing:.15px;
+      cursor:pointer;
+      box-shadow: 0 8px 16px rgba(0,0,0,.08);
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
     }
+
+    .cover button:hover{ transform: translateY(-1px); }
+    .cover button:active{ transform: translateY(0); }
 
     .coverFootnote{
       margin: 14px auto 0;
@@ -525,6 +514,7 @@
       pointer-events:none;
       transition: opacity 520ms ease;
       z-index:10;
+      background: linear-gradient(180deg, rgba(251,244,230,.18), rgba(251,244,230,.5));
     }
 
     .closingLine.on{
@@ -552,10 +542,24 @@
     }
 
     @media (max-width: 720px){
+      .app{
+        height:min(700px, 92vh);
+      }
+
       .content{
         flex-direction:column;
-        padding: 22px 18px;
-        gap: 14px;
+        padding: 16px 16px 72px;
+        gap: 8px;
+      }
+
+      .mainText{
+        align-items:flex-start;
+        padding: 6px 0 0;
+        min-height: auto;
+      }
+
+      .mainText p{
+        max-width: 30ch;
       }
 
       .margin{
@@ -563,33 +567,23 @@
         border-left:none;
         border-top: 1px solid rgba(43,36,31,.10);
         padding-left:0;
-        padding-top: 12px;
+        padding-top: 10px;
+        gap: 10px;
+        margin-top: -2px;
       }
 
-      .mainText{
-        padding-bottom: 4px;
-      }
-
-      .mainText p{
-        max-width: 30ch;
+      .marginTop{
+        gap:8px;
       }
 
       .noteCard{
-        min-height: 126px;
+        min-height: 136px;
       }
 
-      .tapZone{
-        top: 18px;
-        left: 18px;
-        right: 18px;
-        bottom: calc(126px + 64px);
-      }
-
-      .pageHint{
-        left: 18px;
-        right: 18px;
-        bottom: 14px;
-        font-size: 11px;
+      .navBar{
+        left: 16px;
+        right: 16px;
+        bottom: 12px;
       }
 
       .coverFootnote{
@@ -601,7 +595,7 @@
 
     @media (prefers-reduced-motion: reduce){
       :root{ --turn-ms: 1ms; --fade-ms: 1ms; }
-      .flipLayer{ transition:none; }
+      .flipLayer,
       .noteText,
       .noteCard,
       .noteInsert,
@@ -610,7 +604,10 @@
       .finaleGlow,
       .closingLine,
       .flipShade,
-      button{ transition:none; }
+      .navBar button,
+      .cover button{
+        transition:none;
+      }
     }
 
     .srOnly{
@@ -642,11 +639,11 @@
 
             <p class="coverFootnote" aria-hidden="true">
               <span class="coverFootnoteMark">†</span>
-              Turn the page with a tap. The margins keep their own secrets.
+              Open each page, then uncover what was tucked into the margin.
             </p>
 
             <p class="srOnly" id="kbdHelp">
-              Keyboard: Enter to open. Space or ArrowRight to turn page after revealing the note. ArrowLeft to go back. Press M to reveal the margin note.
+              Keyboard: Enter to open. Press Enter or Space on the margin note to reveal it. Use the Back and Next buttons to move through the story.
             </p>
           </div>
         </div>
@@ -668,7 +665,7 @@
                   <div class="noteTeaser" id="noteTeaser"></div>
 
                   <div
-                    class="noteCard folded"
+                    class="noteCard"
                     id="noteCard"
                     role="button"
                     tabindex="0"
@@ -687,14 +684,9 @@
               </aside>
             </div>
 
-            <div class="pageHint" aria-hidden="true">
-              <span id="pageCount">1 / 6</span>
-              <span id="pageHintText">Reveal the note to continue</span>
-            </div>
-
-            <div class="tapZone" aria-hidden="true">
-              <div class="tapLeft" id="tapLeft"></div>
-              <div class="tapRight" id="tapRight"></div>
+            <div class="navBar">
+              <button id="backBtn" type="button" aria-label="Go to previous page">Back</button>
+              <button id="nextBtn" type="button" aria-label="Go to next page">Next</button>
             </div>
           </div>
 
@@ -753,15 +745,12 @@
       const noteText = document.getElementById("noteText");
       const noteCard = document.getElementById("noteCard");
       const notePrompt = document.getElementById("notePrompt");
-
-      const tapLeft = document.getElementById("tapLeft");
-      const tapRight = document.getElementById("tapRight");
-
       const chapterLabel = document.getElementById("chapterLabel");
-      const pageCount = document.getElementById("pageCount");
-      const pageHintText = document.getElementById("pageHintText");
-      const flipLayer = document.getElementById("flipLayer");
 
+      const backBtn = document.getElementById("backBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      const flipLayer = document.getElementById("flipLayer");
       const finaleGlow = document.getElementById("finaleGlow");
       const closingLine = document.getElementById("closingLine");
 
@@ -794,11 +783,9 @@
         return Number.isFinite(n) ? n : 620;
       }
 
-      function setHintText() {
-        if (finished) return;
-        pageHintText.textContent = noteRevealed
-          ? "Tap right to turn"
-          : "Reveal the note to continue";
+      function updateNavState() {
+        backBtn.disabled = index === 0 || turning || finished;
+        nextBtn.disabled = turning || finished || !noteRevealed;
       }
 
       function setChapter(i) {
@@ -807,13 +794,10 @@
         mainText.textContent = ch.main;
         noteTeaser.textContent = ch.teaser;
         noteText.textContent = ch.note;
-
         chapterLabel.textContent = `CHAPTER ${roman(i + 1)}`;
-        pageCount.textContent = `${i + 1} / ${chapters.length}`;
 
         noteRevealed = false;
         noteCard.classList.remove("revealed");
-        noteCard.classList.add("folded");
         noteCard.setAttribute("aria-expanded", "false");
 
         notePrompt.textContent = i === chapters.length - 1
@@ -823,20 +807,20 @@
         const isFinal = i === chapters.length - 1;
         finaleGlow.classList.toggle("on", isFinal);
 
-        setHintText();
+        updateNavState();
       }
 
       function revealNote() {
         if (finished || noteRevealed || turning) return;
-
         noteRevealed = true;
         noteCard.classList.add("revealed");
         noteCard.setAttribute("aria-expanded", "true");
-        setHintText();
 
         if (index === chapters.length - 1) {
           finaleGlow.classList.add("on");
         }
+
+        updateNavState();
       }
 
       function turnPage(dir) {
@@ -848,12 +832,13 @@
 
         if (nextIndex >= chapters.length) {
           finished = true;
-          pageHintText.textContent = "";
+          updateNavState();
           closingLine.classList.add("on");
           return;
         }
 
         turning = true;
+        updateNavState();
         flipLayer.classList.add("turning");
 
         window.setTimeout(() => {
@@ -863,6 +848,7 @@
 
           window.setTimeout(() => {
             turning = false;
+            updateNavState();
           }, 40);
         }, getTurnDurationMs());
       }
@@ -892,34 +878,27 @@
           return;
         }
 
-        if (key === "m") {
-          e.preventDefault();
-          revealNote();
-          return;
-        }
-
         if ((key === "enter" || key === " ") && document.activeElement === noteCard) {
           e.preventDefault();
           revealNote();
           return;
         }
 
-        if (key === "arrowright") {
+        if (key === "m") {
           e.preventDefault();
-          turnPage(+1);
-          return;
-        }
-
-        if (key === " ") {
-          e.preventDefault();
-          if (noteRevealed) turnPage(+1);
-          else revealNote();
+          revealNote();
           return;
         }
 
         if (key === "arrowleft") {
           e.preventDefault();
           turnPage(-1);
+          return;
+        }
+
+        if (key === "arrowright") {
+          e.preventDefault();
+          turnPage(+1);
         }
       }
 
@@ -931,9 +910,9 @@
         }
       });
 
+      backBtn.addEventListener("click", () => turnPage(-1));
+      nextBtn.addEventListener("click", () => turnPage(+1));
       openBtn.addEventListener("click", openBook);
-      tapRight.addEventListener("click", () => turnPage(+1));
-      tapLeft.addEventListener("click", () => turnPage(-1));
       document.addEventListener("keydown", onKeyDown);
 
       coverView.style.display = "flex";
